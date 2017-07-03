@@ -38,6 +38,10 @@ rightKey = KbName('right');
 Intro = imread('Images/Bienvenida.jpg');
 [~,~, raw]=xlsread('Words\Estímulos_SWM.xls');
 
+arrow_left=sprintf('%s','<--- NO');
+arrow_right=sprintf('%s','SI --->');
+question=sprintf('%s','¿Estas son las mismas palabras que vio en la pantalla anterior?') ;
+
 
 %% Start Psychtoolbox - FINISHED
 
@@ -138,12 +142,26 @@ for practice=1:6
             %TEST
             
             screen('FillRect',hd.window,black)                     
+            
+            
+            DrawFormattedText(hd.window, question, 'center',...
+                hd.centery * 0.2, white);
+           
+             DrawFormattedText(hd.window, arrow_left, hd.centerx * 0.2,...
+                hd.centery * 1.7, white);
+            DrawFormattedText(hd.window, arrow_right, hd.centerx * 1.6,...
+                hd.centery * 1.7, white);
+           
+            
             DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
                 hd.centery * 0.8, white);
             DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
                 'center', white);          
             DrawFormattedText(hd.window, sprintf('%c',w(3).test), 'center',...
                 hd.centery * 1.10, white);
+            
+            
+            
             Screen('Flip',hd.window,0,1); %%
  
             tic
@@ -198,7 +216,16 @@ for practice=1:6
         
             %TEST
             
-            screen('FillRect',hd.window,black)                     
+            screen('FillRect',hd.window,black)
+            
+            DrawFormattedText(hd.window, question, 'center',...
+                hd.centery * 0.2, white);
+           
+             DrawFormattedText(hd.window, arrow_left, hd.centerx * 0.2,...
+                hd.centery * 1.7, white);
+            DrawFormattedText(hd.window, arrow_right, hd.centerx * 1.6,...
+                hd.centery * 1.7, white);
+            
             DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
                 hd.centery * 0.70, white);
             DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
@@ -265,7 +292,16 @@ for practice=1:6
     
             %TEST
             
-            screen('FillRect',hd.window,black)                     
+            screen('FillRect',hd.window,black)
+            
+            DrawFormattedText(hd.window, question, 'center',...
+                hd.centery * 0.2, white);
+           
+             DrawFormattedText(hd.window, arrow_left, hd.centerx * 0.2,...
+                hd.centery * 1.7, white);
+            DrawFormattedText(hd.window, arrow_right, hd.centerx * 1.6,...
+                hd.centery * 1.7, white);
+            
             DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
                 hd.centery * 0.65, white);
             DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
