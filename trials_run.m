@@ -1,0 +1,301 @@
+
+function [log point]=trials_run(numberoftrials2run,hd,iti,raw,point)
+
+
+%% Declare constant & variables
+
+arrow_left=sprintf('%s','<--- NO');
+arrow_right=sprintf('%s','SI --->');
+question=sprintf('%s','¿Estas son las mismas palabras que vio en la pantalla anterior?') ;
+
+white=hd.white;
+black=hd.black;
+
+leftKey = KbName('leftarrow');
+rightKey = KbName('rightarrow');
+
+
+log=zeros(numberoftrials2run,8);
+
+
+%% Begin  loop
+
+init_time=GetSecs;
+
+for trial=1:numberoftrials2run
+
+    log(trial,1)=trial;
+    log(trial,2)=GetSecs-init_time;
+    
+    screen('FillRect',hd.window,black)            
+    DrawFormattedText(hd.window, '+', 'center',...
+                'center', white);          
+    Screen('Flip',hd.window,0,1); %%  
+    
+    iti.time=iti.xmin+rand(1)*(iti.xmax-iti.xmin);
+    waitSecs(iti.time/1000);
+    
+    word_number=cell2mat(raw(point,2));
+    
+    switch word_number
+    
+        case 3
+        
+            for i=1:3
+            
+                point=point+1;
+                w(i).stim= cell2mat(raw(point,1));
+                w(i).test= cell2mat(raw(point,2));
+            
+            end
+  
+            %Stim
+            
+            screen('FillRect',hd.window,black)                     
+            DrawFormattedText(hd.window, sprintf('%c',w(1).stim), 'center',...
+                hd.centery * 0.8, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(2).stim), 'center',...
+                'center', white);          
+            DrawFormattedText(hd.window, sprintf('%c',w(3).stim), 'center',...
+                hd.centery * 1.10, white);
+           
+            Screen('Flip',hd.window,0,1); %%
+            
+            log(trial,3)=GetSecs-init_time; %LOG STIM TRIGG Time
+           
+            point=point+1;
+          
+            waitSecs(hd.times(1).stim);
+            
+            screen('FillRect',hd.window,black);
+            Screen('Flip',hd.window,0,1); %%
+
+            log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
+           
+            
+            waitSecs(hd.times(1).blank);
+ 
+            %TEST
+            
+            screen('FillRect',hd.window,black)                     
+            
+            
+            DrawFormattedText(hd.window, question, 'center',...
+                hd.centery * 0.2, white);
+           
+             DrawFormattedText(hd.window, arrow_left, hd.centerx * 0.2,...
+                hd.centery * 1.7, white);
+            DrawFormattedText(hd.window, arrow_right, hd.centerx * 1.6,...
+                hd.centery * 1.7, white);
+           
+            
+            DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
+                hd.centery * 0.8, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
+                'center', white);          
+            DrawFormattedText(hd.window, sprintf('%c',w(3).test), 'center',...
+                hd.centery * 1.10, white);
+            
+            
+            
+            Screen('Flip',hd.window,0,1); %%
+ 
+            log(trial,5)=GetSecs-init_time; %LOG TEST TRIGG Time
+           
+            
+            tic
+            
+            out=false;
+            
+            while toc<hd.times(1).test && out == false
+            
+                [keyIsDown,secs, keyCode] = KbCheck;
+
+                if keyCode(rightKey)
+                    out = true;
+                    log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
+                    log(trial,7)=2; %LOG Answer  
+
+                elseif keyCode(leftKey)
+                    out = true;
+                    log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
+                    log(trial,7)=1; %LOG Answer
+
+                end
+                
+            end
+            
+        case 4
+            
+            for i=1:4
+            
+                point=point+1;
+                w(i).stim= cell2mat(raw(point,1));
+                w(i).test= cell2mat(raw(point,2));
+            
+            end
+            
+            screen('FillRect',hd.window,black)
+            
+            DrawFormattedText(hd.window, sprintf('%c',w(1).stim), 'center',...
+                hd.centery * 0.70, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(2).stim), 'center',...
+                hd.centery * 0.85, white);          
+            DrawFormattedText(hd.window, sprintf('%c',w(3).stim), 'center',...
+                hd.centery * 1, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(4).stim), 'center',...
+                hd.centery * 1.15, white);
+            
+            Screen('Flip',hd.window,0,1); %%
+ 
+            
+            log(trial,3)=GetSecs-init_time; %LOG STIM TRIGG Time
+           
+            point=point+1;
+            
+            waitSecs(hd.times(2).stim);
+                        
+            screen('FillRect',hd.window,black);
+            screen('Flip',hd.window,0,1); %%
+            
+            log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
+           
+            
+            waitSecs(hd.times(2).blank);
+        
+            
+            %TEST
+            
+            screen('FillRect',hd.window,black)
+            
+            DrawFormattedText(hd.window, question, 'center',...
+                hd.centery * 0.2, white);
+           
+             DrawFormattedText(hd.window, arrow_left, hd.centerx * 0.2,...
+                hd.centery * 1.7, white);
+            DrawFormattedText(hd.window, arrow_right, hd.centerx * 1.6,...
+                hd.centery * 1.7, white);
+            
+            DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
+                hd.centery * 0.70, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
+                hd.centery * 0.85, white);          
+            DrawFormattedText(hd.window, sprintf('%c',w(3).test), 'center',...
+                hd.centery * 1, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(4).test), 'center',...
+                hd.centery * 1.15, white);
+            Screen('Flip',hd.window,0,1); %%
+ 
+            log(trial,5)=GetSecs-init_time; %LOG TEST TRIGG Time
+           
+            
+            tic
+            
+            out=false;
+            
+            while toc<hd.times(2).test && out == false
+            
+                [keyIsDown,secs, keyCode] = KbCheck;
+
+                if keyCode(rightKey)
+                    out = true;
+                    log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
+                    log(trial,7)=2; %LOG Answer  
+
+                elseif keyCode(leftKey)
+                    out = true;
+                    log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
+                    log(trial,7)=1; %LOG Answer
+             
+                end
+            end
+            
+            
+        case 5
+          
+            for i=1:5
+            
+                point=point+1;
+                w(i).stim= cell2mat(raw(point,1));
+                w(i).test= cell2mat(raw(point,2));
+            
+            end
+            
+            screen('FillRect',hd.window,black)
+            
+            DrawFormattedText(hd.window, sprintf('%c',w(1).stim), 'center',...
+                hd.centery * 0.65, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(2).stim), 'center',...
+                hd.centery * 0.80, white);          
+            DrawFormattedText(hd.window, sprintf('%c',w(3).stim), 'center',...
+                hd.centery * 0.95, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(4).stim), 'center',...
+                hd.centery * 1.10, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(5).stim), 'center',...
+                hd.centery * 1.25, white);
+            
+            
+            Screen('Flip',hd.window,0,1); %%
+            
+            log(trial,3)=GetSecs-init_time; %LOG STIM TRIGG Time
+ 
+            point=point+1;
+ 
+            waitSecs(hd.times(3).stim);
+                        
+            screen('FillRect',hd.window,black);
+            Screen('Flip',hd.window,0,1); %%
+
+            log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
+            
+            waitSecs(hd.times(3).blank);
+    
+            %TEST
+            
+            screen('FillRect',hd.window,black)
+            
+            DrawFormattedText(hd.window, question, 'center',...
+                hd.centery * 0.2, white);
+           
+             DrawFormattedText(hd.window, arrow_left, hd.centerx * 0.2,...
+                hd.centery * 1.7, white);
+            DrawFormattedText(hd.window, arrow_right, hd.centerx * 1.6,...
+                hd.centery * 1.7, white);
+            
+            DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
+                hd.centery * 0.65, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
+                hd.centery * 0.80, white);          
+            DrawFormattedText(hd.window, sprintf('%c',w(3).test), 'center',...
+                hd.centery * 0.95, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(4).test), 'center',...
+                hd.centery * 1.10, white);
+            DrawFormattedText(hd.window, sprintf('%c',w(5).test), 'center',...
+                hd.centery * 1.25, white);
+            Screen('Flip',hd.window,0,1); %%
+ 
+            log(trial,5)=GetSecs-init_time; %LOG TEST TRIGG Time
+           
+            
+            tic
+            
+            out=false;
+            
+            while toc<hd.times(3).test && out == false
+            
+                [keyIsDown,secs, keyCode] = KbCheck;
+                if keyCode(rightKey)
+                    out = true;
+                    log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
+                    log(trial,7)=2; %LOG Answer  
+
+                elseif keyCode(leftKey)
+                    out = true;
+                    log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
+                    log(trial,7)=1; %LOG Answer
+
+                end
+            end
+    end
+
+end
