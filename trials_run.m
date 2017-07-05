@@ -27,7 +27,7 @@ for trial=1:numberoftrials2run
     log(trial,1)=trial;
     log(trial,2)=GetSecs-init_time;
     
-    screen('FillRect',hd.window,black)            
+    Screen('FillRect',hd.window,black)            
     DrawFormattedText(hd.window, '+', 'center',...
                 'center', white);          
     Screen('Flip',hd.window,0,1); %%  
@@ -36,6 +36,7 @@ for trial=1:numberoftrials2run
     waitSecs(iti.time/1000);
     
     word_number=cell2mat(raw(point,2));
+    correct_ans=cell2mat(raw(point,3));
     
     switch word_number
     
@@ -51,11 +52,11 @@ for trial=1:numberoftrials2run
   
             %Stim
             
-            screen('FillRect',hd.window,black)                     
+            Screen('FillRect',hd.window,black)                     
             DrawFormattedText(hd.window, sprintf('%c',w(1).stim), 'center',...
                 hd.centery * 0.8, white);
             DrawFormattedText(hd.window, sprintf('%c',w(2).stim), 'center',...
-                'center', white);          
+                hd.centery * 0.95, white);          
             DrawFormattedText(hd.window, sprintf('%c',w(3).stim), 'center',...
                 hd.centery * 1.10, white);
            
@@ -67,7 +68,7 @@ for trial=1:numberoftrials2run
           
             waitSecs(hd.times(1).stim);
             
-            screen('FillRect',hd.window,black);
+            Screen('FillRect',hd.window,black);
             Screen('Flip',hd.window,0,1); %%
 
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
@@ -77,7 +78,7 @@ for trial=1:numberoftrials2run
  
             %TEST
             
-            screen('FillRect',hd.window,black)                     
+            Screen('FillRect',hd.window,black)                     
             
             
             DrawFormattedText(hd.window, question, 'center',...
@@ -92,7 +93,7 @@ for trial=1:numberoftrials2run
             DrawFormattedText(hd.window, sprintf('%c',w(1).test), 'center',...
                 hd.centery * 0.8, white);
             DrawFormattedText(hd.window, sprintf('%c',w(2).test), 'center',...
-                'center', white);          
+                hd.centery * 0.95, white);          
             DrawFormattedText(hd.window, sprintf('%c',w(3).test), 'center',...
                 hd.centery * 1.10, white);
             
@@ -115,11 +116,31 @@ for trial=1:numberoftrials2run
                     out = true;
                     log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
                     log(trial,7)=2; %LOG Answer  
+                    
+                    if (correct_ans==2)
+                        
+                        log(trial,8)=2; % OK
+                    else
+                        
+                        log(trial,8)=1;
+                    end
+                    
 
                 elseif keyCode(leftKey)
                     out = true;
                     log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
-                    log(trial,7)=1; %LOG Answer
+                    log(trial,7)=1; %LOG Answer (NO)
+                    
+                    if (correct_ans==1)
+                        
+                        log(trial,8)=2;
+                        
+                    else
+                        
+                        log(trial,8)=1;
+                        
+                    end
+                    
 
                 end
                 
@@ -135,7 +156,7 @@ for trial=1:numberoftrials2run
             
             end
             
-            screen('FillRect',hd.window,black)
+            Screen('FillRect',hd.window,black)
             
             DrawFormattedText(hd.window, sprintf('%c',w(1).stim), 'center',...
                 hd.centery * 0.70, white);
@@ -153,20 +174,20 @@ for trial=1:numberoftrials2run
            
             point=point+1;
             
-            waitSecs(hd.times(2).stim);
+            WaitSecs(hd.times(2).stim);
                         
-            screen('FillRect',hd.window,black);
-            screen('Flip',hd.window,0,1); %%
+            Screen('FillRect',hd.window,black);
+            Screen('Flip',hd.window,0,1); %%
             
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
            
             
-            waitSecs(hd.times(2).blank);
+            WaitSecs(hd.times(2).blank);
         
             
             %TEST
             
-            screen('FillRect',hd.window,black)
+            Screen('FillRect',hd.window,black)
             
             DrawFormattedText(hd.window, question, 'center',...
                 hd.centery * 0.2, white);
@@ -200,13 +221,35 @@ for trial=1:numberoftrials2run
                 if keyCode(rightKey)
                     out = true;
                     log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
-                    log(trial,7)=2; %LOG Answer  
-
+                    log(trial,7)=2; %LOG Answer  (YES)
+                    
+                    if (correct_ans==2)
+                    
+                        log(trial,8)=2;
+                        
+                    else
+                        
+                        log(trial,8)=1;
+                        
+                    
+                    end
+                    
                 elseif keyCode(leftKey)
                     out = true;
                     log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
-                    log(trial,7)=1; %LOG Answer
+                    log(trial,7)=1; %LOG Answer (NO)
              
+                    if (correct_ans==1)
+                        
+                        log(trial,8)=2;
+                        
+                    else
+                        
+                        log(trial,8)=1;
+                        
+                        
+                    end
+                    
                 end
             end
             
@@ -221,7 +264,7 @@ for trial=1:numberoftrials2run
             
             end
             
-            screen('FillRect',hd.window,black)
+            Screen('FillRect',hd.window,black)
             
             DrawFormattedText(hd.window, sprintf('%c',w(1).stim), 'center',...
                 hd.centery * 0.65, white);
@@ -241,18 +284,18 @@ for trial=1:numberoftrials2run
  
             point=point+1;
  
-            waitSecs(hd.times(3).stim);
+            WaitSecs(hd.times(3).stim);
                         
-            screen('FillRect',hd.window,black);
+            Screen('FillRect',hd.window,black);
             Screen('Flip',hd.window,0,1); %%
 
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
             
-            waitSecs(hd.times(3).blank);
+            WaitSecs(hd.times(3).blank);
     
             %TEST
             
-            screen('FillRect',hd.window,black)
+            Screen('FillRect',hd.window,black)
             
             DrawFormattedText(hd.window, question, 'center',...
                 hd.centery * 0.2, white);
@@ -288,11 +331,35 @@ for trial=1:numberoftrials2run
                     out = true;
                     log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
                     log(trial,7)=2; %LOG Answer  
-
+                    
+                    if (correct_ans==2)
+                        
+                        log(trial,8)=2;
+                        
+                    else
+                        
+                        log(trial,8)=1;
+                        
+                        
+                    end
+                    
+                    
                 elseif keyCode(leftKey)
                     out = true;
                     log(trial,6)=GetSecs-init_time-log(trial,5); %LOG RT Time
                     log(trial,7)=1; %LOG Answer
+                    
+                    if (correct_ans==1)
+                        
+                        log(trial,8)=2;
+                        
+                    else
+                        
+                        log(trial,8)=1;
+                        
+                        
+                    end
+                    
 
                 end
             end

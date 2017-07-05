@@ -30,6 +30,7 @@ hd.textfont = 'Helvetica';
 iti.xmin=200;   % Random ITI limits
 iti.xmax=500;
 
+% Production 
 hd.times(1).stim= 3000/1000;
 hd.times(1).blank= 5000/1000;
 hd.times(1).test= 4000/1000;
@@ -42,11 +43,26 @@ hd.times(3).stim= 5000/1000;
 hd.times(3).blank= 5000/1000;
 hd.times(3).test= 6000/1000;
 
+%Debug
+% hd.times(1).stim= 30/1000;
+% hd.times(1).blank= 50/1000;
+% hd.times(1).test= 1000/1000;
+% 
+% hd.times(2).stim=40/1000;
+% hd.times(2).blank= 50/1000;
+% hd.times(2).test= 1000/1000;
+% 
+% hd.times(3).stim= 50/1000;
+% hd.times(3).blank= 50/1000;
+% hd.times(3).test= 1000/1000;
+
+
 point=1;    % word pointer
 
 
 Intro = imread('Images/Bienvenida.jpg');
-[~,~, raw]=xlsread('Words\Estímulos_SWM.xls');
+Test_start = imread('Images/Test_start.jpg');
+[~,~, raw]=xlsread('Words/Estimulos_SWM.xls');
 
 
 %% Start Psychtoolbox - FINISHED
@@ -97,13 +113,27 @@ Screen('Flip',hd.window);
 
 KbStrokeWait;
 
-% Practice
+%% Practice
 
 numberoftrials2run=6;
-[log_practice point]=trials_run(numberoftrials2run,hd,iti,raw,point)
+[log_practice point]=trials_run(numberoftrials2run,hd,iti,raw,point);
+
+%%
+black=hd.black;
+Screen('FillRect',hd.window,black)  ;                   
+textureIndex=Screen('MakeTexture', hd.window, Test_start);
+Screen('DrawTexture', hd.window, textureIndex);
+Screen('Flip',hd.window);
+
+KbStrokeWait;
+
+%% Test
+
+numberoftrials2run=108;
+[log_test point]=trials_run(numberoftrials2run,hd,iti,raw,point);
 
 
 %% Save & Close
 
-save(['Log/' name '_' date(1:11) '.mat'],'log_practice');
+save(['Log/' name '_' date(1:11) '.mat'],'log_practice', 'log_test');
 Screen('CloseAll'); % Cierro ventana del Psychtoolbox
