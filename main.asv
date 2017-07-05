@@ -3,6 +3,9 @@
 %
 % This script is a working memory task that uses words as stimulus
 % 
+% TODO : Add accuracy to log
+%        Validate Trial design
+%        Add real Test trials  
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
