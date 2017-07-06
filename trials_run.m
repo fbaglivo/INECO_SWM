@@ -33,7 +33,7 @@ for trial=1:numberoftrials2run
     Screen('Flip',hd.window,0,1); %%  
     
     iti.time=iti.xmin+rand(1)*(iti.xmax-iti.xmin);
-    waitSecs(iti.time/1000);
+    WaitSecs(iti.time/1000);
     
     word_number=cell2mat(raw(point,2));
     correct_ans=cell2mat(raw(point,3));
@@ -66,7 +66,7 @@ for trial=1:numberoftrials2run
            
             point=point+1;
           
-            waitSecs(hd.times(1).stim);
+            WaitSecs(hd.times(1).stim);
             
             Screen('FillRect',hd.window,black);
             Screen('Flip',hd.window,0,1); %%
@@ -74,7 +74,7 @@ for trial=1:numberoftrials2run
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
            
             
-            waitSecs(hd.times(1).blank);
+            WaitSecs(hd.times(1).blank);
  
             %TEST
             
