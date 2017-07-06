@@ -1,5 +1,5 @@
 
-function [log point]=trials_run(numberoftrials2run,hd,iti,raw,point)
+function [log point]=trials_run(numberoftrials2run,hd,iti,raw,point,name,date)
 
 
 %% Declare constant & variables
@@ -35,9 +35,10 @@ for trial=1:numberoftrials2run
     iti.time=iti.xmin+rand(1)*(iti.xmax-iti.xmin);
     WaitSecs(iti.time/1000);
     
+    point
     word_number=cell2mat(raw(point,2));
     correct_ans=cell2mat(raw(point,3));
-    
+     
     switch word_number
     
         case 3
@@ -66,15 +67,32 @@ for trial=1:numberoftrials2run
            
             point=point+1;
           
+            
             WaitSecs(hd.times(1).stim);
+            
+            
             
             Screen('FillRect',hd.window,black);
             Screen('Flip',hd.window,0,1); %%
 
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
            
+            tic
+            % Check if exit during blank time
+            while(toc<hd.times(1).blank)
             
-            WaitSecs(hd.times(1).blank);
+                [~, ~, keyCode, ~] = KbCheck();
+    
+                if (find(keyCode) == KbName('q'))
+                    
+                    save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
+                    Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+                    error('Finalizando script...')
+                    
+                end
+
+            end
+            
  
             %TEST
             
@@ -141,6 +159,17 @@ for trial=1:numberoftrials2run
                         
                     end
                     
+                else %if 'q' exit
+                    
+                    if  (find(keyCode) == KbName('q'))
+                        
+                        save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
+                        Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+                        error('Finalizando script...')
+                        
+                    end
+ 
+                    
 
                 end
                 
@@ -181,9 +210,22 @@ for trial=1:numberoftrials2run
             
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
            
+            tic
             
-            WaitSecs(hd.times(2).blank);
-        
+            while(toc<hd.times(1).blank)
+            
+                [~, ~, keyCode, ~] = KbCheck();
+    
+                if (find(keyCode) == KbName('q'))
+                    
+                    save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
+                    Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+                    error('Finalizando script...')
+                    
+                end
+
+            end
+            
             
             %TEST
             
@@ -250,6 +292,16 @@ for trial=1:numberoftrials2run
                         
                     end
                     
+                else
+                    
+                    if  (find(keyCode) == KbName('q'))
+                        
+                        save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
+                        Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+                        error('Finalizando script...')
+                        
+                    end
+     
                 end
             end
             
@@ -291,8 +343,22 @@ for trial=1:numberoftrials2run
 
             log(trial,4)=GetSecs-init_time; %LOG BLANK TRIGG Time
             
-            WaitSecs(hd.times(3).blank);
+            tic
+            
+            while(toc<hd.times(1).blank)
+            
+                [~, ~, keyCode, ~] = KbCheck();
     
+                if (find(keyCode) == KbName('q'))
+                    
+                    save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
+                    Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+                    error('Finalizando script...')
+                    
+                end
+
+            end
+            
             %TEST
             
             Screen('FillRect',hd.window,black)
@@ -360,7 +426,16 @@ for trial=1:numberoftrials2run
                         
                     end
                     
-
+                else
+                    
+                    if  (find(keyCode) == KbName('q'))
+                        
+                        save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
+                        Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+                        error('Finalizando script...')
+                        
+                    end
+ 
                 end
             end
     end

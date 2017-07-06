@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SWM Pardigm V1 
+% SWM Pardigm V2 
 %
 % This script is a working memory task that uses words as stimulus
 % 
@@ -28,6 +28,7 @@ iti.xmin=200;   % Random ITI limits
 iti.xmax=500;
 
 % Production 
+
 hd.times(1).stim= 3000/1000;
 hd.times(1).blank= 5000/1000;
 hd.times(1).test= 4000/1000;
@@ -43,15 +44,15 @@ hd.times(3).test= 6000/1000;
 %Debug
 % hd.times(1).stim= 30/1000;
 % hd.times(1).blank= 50/1000;
-% hd.times(1).test= 1000/1000;
+% hd.times(1).test= 10/1000;
 % 
 % hd.times(2).stim=40/1000;
 % hd.times(2).blank= 50/1000;
-% hd.times(2).test= 1000/1000;
+% hd.times(2).test= 10/1000;
 % 
 % hd.times(3).stim= 50/1000;
 % hd.times(3).blank= 50/1000;
-% hd.times(3).test= 1000/1000;
+% hd.times(3).test= 10/1000;
 
 
 point=1;    % word pointer
@@ -65,7 +66,7 @@ Test_start = imread('Images/Test_start.jpg');
 %% Start Psychtoolbox - FINISHED
 
 PsychDefaultSetup(2);
-hidecursor();
+Hidecursor();
 Priority(max(Priority));
 
 %% Configure Screen - FINISHED
@@ -108,29 +109,61 @@ textureIndex=Screen('MakeTexture', hd.window, Intro);
 Screen('DrawTexture', hd.window, textureIndex);
 Screen('Flip',hd.window);
 
-KbStrokeWait;
+[~, keyCode,~] = KbStrokeWait;
 
 %% Practice
 
 numberoftrials2run=6;
-[log_practice point]=trials_run(numberoftrials2run,hd,iti,raw,point);
+[log_practice point]=trials_run(numberoftrials2run,hd,iti,raw,point,name,date);
 
-%%
+
 black=hd.black;
 Screen('FillRect',hd.window,black)  ;                   
 textureIndex=Screen('MakeTexture', hd.window, Test_start);
 Screen('DrawTexture', hd.window, textureIndex);
 Screen('Flip',hd.window);
 
-KbStrokeWait;
+
+[~, keyCode,~] = KbStrokeWait;
+
+%if keycode == r re run the practice
+
+while(find(keyCode) == KbName('r'))
+
+    textureIndex=Screen('MakeTexture', hd.window, Intro);
+    Screen('DrawTexture', hd.window, textureIndex);
+    Screen('Flip',hd.window);
+
+    [~, keyCode,~] = KbStrokeWait;
+    
+    if (find(keyCode) == KbName('q'))
+        
+        Screen('CloseAll'); % Cierro ventana del Psychtoolbox
+        error('Finalizando script...')
+        
+    end
+    
+    numberoftrials2run=6;
+    [log_practice ~]=trials_run(numberoftrials2run,hd,iti,raw,point,name,date);
+    
+    black=hd.black;
+    Screen('FillRect',hd.window,black)  ;
+    textureIndex=Screen('MakeTexture', hd.window, Test_start);
+    Screen('DrawTexture', hd.window, textureIndex);
+    Screen('Flip',hd.window);
+    [~, keyCode,~] = KbStrokeWait;
+
+end
+
+save(['Log/' name '_' date(1:11) '_Practice.mat'],'log_practice');
 
 %% Test
 
 numberoftrials2run=108;
-[log_test point]=trials_run(numberoftrials2run,hd,iti,raw,point);
+[log_test point]=trials_run(numberoftrials2run,hd,iti,raw,point,name,date);
 
 
 %% Save & Close
 
-save(['Log/' name '_' date(1:11) '.mat'],'log_practice', 'log_test');
+save(['Log/' name '_' date(1:11) '_Test.mat'],'log_test');
 Screen('CloseAll'); % Cierro ventana del Psychtoolbox
