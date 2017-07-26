@@ -35,7 +35,7 @@ for trial=1:numberoftrials2run
     iti.time=iti.xmin+rand(1)*(iti.xmax-iti.xmin);
     WaitSecs(iti.time/1000);
     
-    point
+ 
     word_number=cell2mat(raw(point,2));
     correct_ans=cell2mat(raw(point,3));
      

@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SWM Pardigm V2 
+% SWM Pardigm V3 
 %
 % This script is a working memory task that uses words as stimulus
 % 
@@ -31,15 +31,15 @@ iti.xmax=500;
 
 hd.times(1).stim= 3000/1000;
 hd.times(1).blank= 5000/1000;
-hd.times(1).test= 4000/1000;
+hd.times(1).test= 4500/1000;
 
 hd.times(2).stim=4000/1000;
 hd.times(2).blank= 5000/1000;
-hd.times(2).test= 5000/1000;
+hd.times(2).test= 5500/1000;
 
 hd.times(3).stim= 5000/1000;
 hd.times(3).blank= 5000/1000;
-hd.times(3).test= 6000/1000;
+hd.times(3).test= 6500/1000;
 
 %Debug
 % hd.times(1).stim= 30/1000;
