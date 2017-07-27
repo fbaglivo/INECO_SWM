@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SWM Pardigm V3 
+% SWM Pardigm V3.1 
 %
 % This script is a working memory task that uses words as stimulus
 % 
@@ -9,6 +9,7 @@
 clear all
 close all
 
+Screen('Preference', 'SkipSyncTests', 1);
 
 % Patient info
 
@@ -28,31 +29,31 @@ iti.xmin=200;   % Random ITI limits
 iti.xmax=500;
 
 % Production 
-
-hd.times(1).stim= 3000/1000;
-hd.times(1).blank= 5000/1000;
-hd.times(1).test= 4500/1000;
-
-hd.times(2).stim=4000/1000;
-hd.times(2).blank= 5000/1000;
-hd.times(2).test= 5500/1000;
-
-hd.times(3).stim= 5000/1000;
-hd.times(3).blank= 5000/1000;
-hd.times(3).test= 6500/1000;
+% 
+% hd.times(1).stim= 3000/1000;
+% hd.times(1).blank= 5000/1000;
+% hd.times(1).test= 4500/1000;
+% 
+% hd.times(2).stim=4000/1000;
+% hd.times(2).blank= 5000/1000;
+% hd.times(2).test= 5500/1000;
+% 
+% hd.times(3).stim= 5000/1000;
+% hd.times(3).blank= 5000/1000;
+% hd.times(3).test= 6500/1000;
 
 %Debug
-% hd.times(1).stim= 30/1000;
-% hd.times(1).blank= 50/1000;
-% hd.times(1).test= 10/1000;
-% 
-% hd.times(2).stim=40/1000;
-% hd.times(2).blank= 50/1000;
-% hd.times(2).test= 10/1000;
-% 
-% hd.times(3).stim= 50/1000;
-% hd.times(3).blank= 50/1000;
-% hd.times(3).test= 10/1000;
+hd.times(1).stim= 30/1000;
+hd.times(1).blank= 50/1000;
+hd.times(1).test= 10/1000;
+
+hd.times(2).stim=40/1000;
+hd.times(2).blank= 50/1000;
+hd.times(2).test= 10/1000;
+
+hd.times(3).stim= 50/1000;
+hd.times(3).blank= 50/1000;
+hd.times(3).test= 10/1000;
 
 
 point=1;    % word pointer
@@ -159,7 +160,7 @@ save(['Log/' name '_' date(1:11) '_Practice.mat'],'log_practice');
 
 %% Test
 
-numberoftrials2run=108;
+numberoftrials2run=60;
 [log_test point]=trials_run(numberoftrials2run,hd,iti,raw,point,name,date);
 
 
