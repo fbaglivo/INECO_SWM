@@ -29,32 +29,32 @@ iti.xmin=200;   % Random ITI limits
 iti.xmax=500;
 
 % Production 
-% 
-% hd.times(1).stim= 3000/1000;
-% hd.times(1).blank= 5000/1000;
-% hd.times(1).test= 4500/1000;
-% 
-% hd.times(2).stim=4000/1000;
-% hd.times(2).blank= 5000/1000;
-% hd.times(2).test= 5500/1000;
-% 
-% hd.times(3).stim= 5000/1000;
-% hd.times(3).blank= 5000/1000;
-% hd.times(3).test= 6500/1000;
+
+hd.times(1).stim= 3000/1000;
+hd.times(1).blank= 5000/1000;
+hd.times(1).test= 4500/1000;
+
+hd.times(2).stim=4000/1000;
+hd.times(2).blank= 5000/1000;
+hd.times(2).test= 5500/1000;
+
+hd.times(3).stim= 5000/1000;
+hd.times(3).blank= 5000/1000;
+hd.times(3).test= 6500/1000;
 
 %Debug
-hd.times(1).stim= 30/1000;
-hd.times(1).blank= 50/1000;
-hd.times(1).test= 10/1000;
-
-hd.times(2).stim=40/1000;
-hd.times(2).blank= 50/1000;
-hd.times(2).test= 10/1000;
-
-hd.times(3).stim= 50/1000;
-hd.times(3).blank= 50/1000;
-hd.times(3).test= 10/1000;
-
+% hd.times(1).stim= 30/1000;
+% hd.times(1).blank= 50/1000;
+% hd.times(1).test= 10/1000;
+% 
+% hd.times(2).stim=40/1000;
+% hd.times(2).blank= 50/1000;
+% hd.times(2).test= 10/1000;
+% 
+% hd.times(3).stim= 50/1000;
+% hd.times(3).blank= 50/1000;
+% hd.times(3).test= 10/1000;
+% 
 
 point=1;    % word pointer
 
