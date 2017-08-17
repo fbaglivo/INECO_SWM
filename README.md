@@ -11,4 +11,8 @@ Accuracy can be: 1 for INCORRECT and 2 for CORRECT, 0 is answer timeout
 
 - You can repeat Practice task pressing 'r' in Test Task introduction screen
 
-- You can quit in any time pressing 'q' in blank or response screen, or in practice intro screen 
+- You can quit in any time pressing 'q' in blank, or fix or response screen, or in practice intro screen 
+
+- You can pause in any time pressing 'p' in blank, or fix or response screen, or in practice intro screen 
+
+- To resume test you have to press 'r' when test is paused

@@ -37,17 +37,27 @@ for trial=1:numberoftrials2run
     tic
     % Check if exit during blank time
      
-      while(toc<iti.time/1000)
-
-          out = check_keyboard()
-          
-          if (out == -1)
-              
-              save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
-              Screen('CloseAll'); % Cierro ventana del Psychtoolbox
-              error('Finalizando script...')
-              
-          end
+      while(toc<3*iti.time/1000)
+            
+                [~, ~, keyCode, ~] = KbCheck();
+    
+                if (find(keyCode) == KbName('p'))
+                    
+                    [~, ~, keyCode, ~] = KbCheck();
+                    
+                    flag = 0;
+                    
+                    while (flag == 0)
+                        
+                        [~, ~, keyCode, ~] = KbCheck();
+                        if (find(keyCode) == KbName('r'))
+                        
+                           flag=1;
+                        
+                        end
+                        
+                    end
+                end
 
             end
             
@@ -98,15 +108,14 @@ for trial=1:numberoftrials2run
             % Check if exit during blank time
             while(toc<hd.times(1).blank)
             
-                
-                out = check_keyboard()
-                
-                if (out == -1)
+                [~, ~, keyCode, ~] = KbCheck();
+    
+                if (find(keyCode) == KbName('q'))
                     
                     save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
                     Screen('CloseAll'); % Cierro ventana del Psychtoolbox
                     error('Finalizando script...')
-                
+                    
                 end
 
             end
@@ -232,16 +241,15 @@ for trial=1:numberoftrials2run
             
             while(toc<hd.times(1).blank)
             
-                out = check_keyboard();
-                
-                if (out == -1)
+                [~, ~, keyCode, ~] = KbCheck();
+    
+                if (find(keyCode) == KbName('q'))
                     
                     save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
                     Screen('CloseAll'); % Cierro ventana del Psychtoolbox
                     error('Finalizando script...')
-                
+                    
                 end
-
 
             end
             
@@ -366,16 +374,15 @@ for trial=1:numberoftrials2run
             
             while(toc<hd.times(1).blank)
             
-                out = check_keyboard();
-                
-                if (out == -1)
+                [~, ~, keyCode, ~] = KbCheck();
+    
+                if (find(keyCode) == KbName('q'))
                     
                     save(['Log/' name '_' date(1:11) '_incomplete.mat'],'log');
                     Screen('CloseAll'); % Cierro ventana del Psychtoolbox
                     error('Finalizando script...')
-                
+                    
                 end
-
 
             end
             
